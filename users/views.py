@@ -41,7 +41,7 @@ class UserSignupView(generics.CreateAPIView):
             return Response(response_data, status=status.HTTP_201_CREATED)  
         except Exception:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+              
 class UserLogoutView(APIView):
     """
     Handle user logout.
