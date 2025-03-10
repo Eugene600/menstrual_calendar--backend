@@ -1,4 +1,3 @@
-from django.http import Http404
 from .models import CustomUser
 from rest_framework.decorators import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -9,6 +8,8 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenVerifyView
 from rest_framework_simplejwt.serializers import TokenVerifySerializer
+from django.contrib.auth import authenticate
+
 
 # Create your views here.
 class UserSignupView(generics.CreateAPIView):
@@ -41,6 +42,46 @@ class UserSignupView(generics.CreateAPIView):
             return Response(response_data, status=status.HTTP_201_CREATED)  
         except Exception:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class UserLoginView(APIView):
+    """
+    Handling user login
+    """       
+    permission_classes = [AllowAny]
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            email = request.data.get('email')
+            password = request.data.get('password')
+            
+            user = authenticate(request, email=email, password=password)
+            
+            if user is None:
+                return Response(
+                    {'error': 'Invalid credentials'},
+                    status=status.HTTP_401_UNAUTHORIZED
+                )
+                
+            refresh = RefreshToken.for_user(user)
+            access = refresh.access_token
+            
+            user_serializer = CustomUserSerializer(user)
+            
+            response_data = {
+                'user': user_serializer.data,
+                'tokens': {
+                    'access': str(access),
+                    'refresh': str(refresh)
+                }
+            }
+            
+            return Response(response_data, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response(
+                {'error': str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
               
 class UserLogoutView(APIView):
     """
