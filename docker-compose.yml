@@ -21,9 +21,7 @@ services:
 
   # Django REST Framework Backend Service
   backend:
-    build:
-      context: .  # Path to the directory containing the Dockerfile for the backend
-      dockerfile: Dockerfile  # Name of the Dockerfile
+    image: eugenewachira17/menstrual_calendar:latest
     container_name: menstrual-calendar_backend  
     environment:
       DB_HOST: db  
