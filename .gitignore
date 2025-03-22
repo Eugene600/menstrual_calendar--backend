@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Ignore Python cache inside migrations
+migrations/__pycache__/
+
 # C extensions
 *.so
 

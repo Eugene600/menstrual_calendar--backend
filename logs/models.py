@@ -10,7 +10,7 @@ class SexualIntercourseLog(models.Model):
     ]
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     cycle = models.ForeignKey(Cycles, on_delete=models.CASCADE, null=True, blank=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     protection_used = models.CharField(max_length=20,choices=PROTECTION_CHOICES, default=False, null=True, blank=True)
 
 class MoodLog(models.Model):
@@ -22,7 +22,7 @@ class MoodLog(models.Model):
     ]
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     cycle = models.ForeignKey(Cycles, on_delete=models.CASCADE, null=True, blank=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     mood = models.CharField(max_length=50, choices=MOOD_CHOICES, null=True, blank=True)
 
 class BloodFlowLog(models.Model):
@@ -32,7 +32,7 @@ class BloodFlowLog(models.Model):
     ]
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     cycle = models.ForeignKey(Cycles, on_delete=models.CASCADE, null=True, blank=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     flow_level = models.CharField(max_length=20, choices=BLOOD_FLOW_CHOICES, null=True, blank=True)
 
 class MedicationLog(models.Model):
@@ -50,7 +50,7 @@ class MedicationLog(models.Model):
     
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     cycle = models.ForeignKey(Cycles, on_delete=models.CASCADE, null=True, blank=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     medication = models.CharField(max_length=100, choices=MEDICATION_CHOICES, null=True, blank=True)
 
 class SymptomLog(models.Model):
@@ -65,5 +65,5 @@ class SymptomLog(models.Model):
     
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     cycle = models.ForeignKey(Cycles, on_delete=models.CASCADE, null=True, blank=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     symptom = models.CharField(max_length=100, choices=SYMPTOM_CHOICES, null=True, blank=True)
