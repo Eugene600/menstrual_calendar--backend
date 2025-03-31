@@ -11,7 +11,6 @@ from django.utils.dateparse import parse_date
 
 #Intercourse Logs
 class SexualIntercourseLogCreateView(generics.CreateAPIView):
-    queryset = SexualIntercourseLog.objects.all()
     serializer_class = SexualIntercourseLogSerializer
     permission_classes = [IsAuthenticated]
 
@@ -89,11 +88,16 @@ class SexualIntercourseLogByDateView(generics.ListAPIView):
 class SexualIntercourseLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SexualIntercourseLogSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        
+        return SexualIntercourseLog.objects.filter(user=user)
 
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_object()
+            instance = self.get_queryset()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -106,7 +110,7 @@ class SexualIntercourseLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_object()
+            instance = self.get_queryset()
             self.perform_destroy(instance)
             return Response({
                 "message": "Sexual Intercourse Log deleted successfully"
@@ -116,7 +120,6 @@ class SexualIntercourseLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 #Moods logs
 class MoodLogCreateView(generics.CreateAPIView):
-    queryset = MoodLog.objects.all()
     serializer_class = MoodLogSerializer
     permission_classes = [IsAuthenticated]
 
@@ -193,11 +196,16 @@ class MoodLogByDateView(generics.ListAPIView):
 class MoodLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MoodLogSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        
+        return MoodLog.objects.filter(user=user)
 
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_object()
+            instance = self.get_queryset()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -210,7 +218,7 @@ class MoodLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_object()
+            instance = self.get_queryset()
             self.perform_destroy(instance)
             return Response({
                 "message": "Mood Log deleted successfully"
@@ -220,7 +228,6 @@ class MoodLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 #Blood Flow Logs
 class BloodFlowLogCreateView(generics.CreateAPIView):
-    queryset = BloodFlowLog.objects.all()
     serializer_class = BloodFlowLogSerializer
     permission_classes = [IsAuthenticated]
 
@@ -297,11 +304,16 @@ class BloodLogByDateView(generics.ListAPIView):
 class BloodFlowLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BloodFlowLogSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        
+        return BloodFlowLog.objects.filter(user=user)
 
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_object()
+            instance = self.get_queryset()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -314,7 +326,7 @@ class BloodFlowLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_object()
+            instance = self.get_queryset()
             self.perform_destroy(instance)
             return Response({
                 "message": "Blood Flow Log deleted successfully"
@@ -324,7 +336,6 @@ class BloodFlowLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 #Medication Logs
 class MedicationLogCreateView(generics.CreateAPIView):
-    queryset = MedicationLog.objects.all()
     serializer_class = MedicationLogSerializer
     permission_classes = [IsAuthenticated]
 
@@ -401,10 +412,15 @@ class MedicationLogByDateView(generics.ListAPIView):
 class MedicationLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MedicationLogSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        
+        return MedicationLog.objects.filter(user=user)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)  # Allow partial updates
-        instance = self.get_object()
+        instance = self.get_queryset()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
@@ -414,7 +430,7 @@ class MedicationLogDetailView(generics.RetrieveUpdateDestroyAPIView):
         }, status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
+        instance = self.get_queryset()
         self.perform_destroy(instance)
         return Response({
             "message": "Medication Log deleted successfully"
@@ -422,7 +438,6 @@ class MedicationLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 #Symptoms logs
 class SymptomLogCreateView(generics.CreateAPIView):
-    queryset = SymptomLog.objects.all()
     serializer_class = SymptomLogSerializer
     permission_classes = [IsAuthenticated]
 
@@ -497,11 +512,16 @@ class SymptomLogByDateView(generics.ListAPIView):
 class SymptomLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = SymptomLogSerializer
     permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        
+        return SymptomLog.objects.filter(user=user)
 
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_object()
+            instance = self.get_queryset()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -514,7 +534,7 @@ class SymptomLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_object()
+            instance = self.get_queryset()
             self.perform_destroy(instance)
             return Response({
                 "message": "Symptoms Log deleted successfully"
