@@ -97,7 +97,7 @@ class SexualIntercourseLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_queryset()
+            instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -110,7 +110,7 @@ class SexualIntercourseLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_queryset()
+            instance = self.get_object()
             self.perform_destroy(instance)
             return Response({
                 "message": "Sexual Intercourse Log deleted successfully"
@@ -205,7 +205,7 @@ class MoodLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_queryset()
+            instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -218,7 +218,7 @@ class MoodLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_queryset()
+            instance = self.get_object()
             self.perform_destroy(instance)
             return Response({
                 "message": "Mood Log deleted successfully"
@@ -313,7 +313,7 @@ class BloodFlowLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_queryset()
+            instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -326,7 +326,7 @@ class BloodFlowLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_queryset()
+            instance = self.get_object()
             self.perform_destroy(instance)
             return Response({
                 "message": "Blood Flow Log deleted successfully"
@@ -420,7 +420,7 @@ class MedicationLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)  # Allow partial updates
-        instance = self.get_queryset()
+        instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
@@ -430,7 +430,7 @@ class MedicationLogDetailView(generics.RetrieveUpdateDestroyAPIView):
         }, status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
-        instance = self.get_queryset()
+        instance = self.get_object()
         self.perform_destroy(instance)
         return Response({
             "message": "Medication Log deleted successfully"
@@ -521,7 +521,7 @@ class SymptomLogDetailView(generics.RetrieveUpdateDestroyAPIView):
     def update(self, request, *args, **kwargs):
         try:
             partial = kwargs.pop('partial', False)  # Allow partial updates
-            instance = self.get_queryset()
+            instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
@@ -534,7 +534,7 @@ class SymptomLogDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         try:
-            instance = self.get_queryset()
+            instance = self.get_object()
             self.perform_destroy(instance)
             return Response({
                 "message": "Symptoms Log deleted successfully"
